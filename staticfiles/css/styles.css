@@ -1,0 +1,7 @@
+.contact-item:hover {
+    opacity: 0.5;
+}
+
+.btn-hover:hover {
+    opacity: 0.9;
+}

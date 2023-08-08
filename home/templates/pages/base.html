@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script>
+        (function() {
+
+            // JavaScript snippet handling Dark/Light mode switching
+
+            const getStoredTheme = () => localStorage.getItem('theme');
+            const setStoredTheme = theme => localStorage.setItem('theme', theme);
+            const forcedTheme = document.documentElement.getAttribute('data-bss-forced-theme');
+
+            const getPreferredTheme = () => {
+
+                if (forcedTheme) return forcedTheme;
+
+                const storedTheme = getStoredTheme();
+                if (storedTheme) {
+                    return storedTheme;
+                }
+
+                const pageTheme = document.documentElement.getAttribute('data-bs-theme');
+
+                if (pageTheme) {
+                    return pageTheme;
+                }
+
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+
+            const setTheme = theme => {
+                if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-bs-theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-bs-theme', theme);
+                }
+            }
+
+            setTheme(getPreferredTheme());
+
+            const showActiveTheme = (theme, focus = false) => {
+                const themeSwitchers = [].slice.call(document.querySelectorAll('.theme-switcher'));
+
+                if (!themeSwitchers.length) return;
+
+                document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+                    element.classList.remove('active');
+                    element.setAttribute('aria-pressed', 'false');
+                });
+
+                for (const themeSwitcher of themeSwitchers) {
+
+                    const btnToActivate = themeSwitcher.querySelector('[data-bs-theme-value="' + theme + '"]');
+
+                    if (btnToActivate) {
+                        btnToActivate.classList.add('active');
+                        btnToActivate.setAttribute('aria-pressed', 'true');
+                    }
+                }
+            }
+
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                const storedTheme = getStoredTheme();
+                if (storedTheme !== 'light' && storedTheme !== 'dark') {
+                    setTheme(getPreferredTheme());
+                }
+            });
+
+            window.addEventListener('DOMContentLoaded', () => {
+                showActiveTheme(getPreferredTheme());
+
+                document.querySelectorAll('[data-bs-theme-value]')
+                    .forEach(toggle => {
+                        toggle.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const theme = toggle.getAttribute('data-bs-theme-value');
+                            setStoredTheme(theme);
+                            setTheme(theme);
+                            showActiveTheme(theme);
+                        })
+                    })
+            });
+        })();
+    </script>
+
+    {% load static %}
+    <!-- Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
+    <!-- <link rel="stylesheet" href = " {% static 'css/bootstrap.min.css' %}" type="text/css"> -->
+    <link rel="stylesheet" href = " {% static 'css/styles.min.css' %}" type="text/css">
+    <link rel="stylesheet" href = " {% static 'css/styles.css' %}" type="text/css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="359x359" href=" {% static 'img/bigsize2.png' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="sticky-top">
+        <!-- Start: Navbar Right Links (Dark) -->
+        <nav class="navbar navbar-expand-md bg-dark" data-bs-theme="dark" data-bs-spy="scroll" data-bs-smooth-scroll="true">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="/home/">
+                    <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                        <img src=" {% static 'img/logo1.png' %}" width="24" height="14">
+                    </span>
+                    <span>Uyen Kim</span>
+                </a>
+                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5">
+                    <span class="visually-hidden">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navcol-5">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home/">
+                                About
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/portfolio/">
+                                Portfolio
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact/">
+                                Contact
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle nav-link" 
+                                aria-expanded="false" 
+                                data-bs-toggle="dropdown">
+                                More
+                            </a>
+                            <div class="dropdown-menu text-start justify-content-lg-start dropdown-menu-end" 
+                                data-bs-spy="scroll">
+                                <a class="dropdown-item"
+                                    href="{% static 'public/Business_Analyst_Intern_Bui_Huynh_Kim_Uyen_Resume.pdf' %}" 
+                                    target="_blank">
+                                    Download resume
+                                </a>
+                            </div>
+                        </li>
+                        <li class="theme-switcher nav-item dropdown">
+                            <a class="dropdown-toggle nav-link ps-0 ms-0" 
+                                aria-expanded="false" 
+                                data-bs-toggle="dropdown" 
+                                href="#" 
+                                style="padding-left: 0px;margin-left: 17px;color: var(--bs-navbar-hover-color);">
+                                <svg xmlns="http://www.w3.org/2000/svg" 
+                                    width="1em" 
+                                    height="1em" 
+                                    fill="currentColor" 
+                                    viewBox="0 0 16 16" 
+                                    class="bi bi-sun-fill mb-1">
+                                    <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path>
+                                </svg>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item d-flex align-items-center" 
+                                    href="#" 
+                                    data-bs-theme-value="light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" 
+                                        width="1em" 
+                                        height="1em" 
+                                        fill="currentColor" 
+                                        viewBox="0 0 16 16" 
+                                        class="bi bi-sun-fill opacity-50 me-2">
+                                        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path>
+                                    </svg>
+                                    Light
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" 
+                                    href="#" 
+                                    data-bs-theme-value="dark">
+                                    <svg xmlns="http://www.w3.org/2000/svg" 
+                                        width="1em" 
+                                        height="1em" 
+                                        fill="currentColor" 
+                                        viewBox="0 0 16 16" 
+                                        class="bi bi-moon-stars-fill opacity-50 me-2">
+                                        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path>
+                                        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"></path>
+                                    </svg>
+                                    Dark
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" 
+                                    href="#" 
+                                    data-bs-theme-value="auto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" 
+                                        width="1em" 
+                                        height="1em" 
+                                        fill="currentColor" 
+                                        iewBox="0 0 16 16" 
+                                        class="bi bi-circle-half opacity-50 me-2">
+                                        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
+                                    </svg>
+                                    Auto
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav><!-- End: Navbar Right Links (Dark) -->
+    </header>
+    <!-- CONTENT -->
+    {% block content %}
+    
+    {% endblock %}
+    <!-- FOOTER -->
+    <!-- Start: Footer Basic -->
+    <footer class="text-center">
+        <div class="container text-muted py-4 py-lg-5">
+            <hr>
+            <ul class="list-inline"></ul>
+            <h5>Contact me</h5>
+            <ul class="list-inline">
+                <li class="list-inline-item me-4">
+                    <a class="bs-icon" 
+                        href="https://fb.com/uyen.bhku" 
+                        target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            width="1em" 
+                            height="1em" 
+                            fill="currentColor" 
+                            viewBox="0 0 16 16" 
+                            class="bi bi-facebook text-secondary" 
+                            style="font-size: 17px;">
+                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path>
+                        </svg>
+                    </a>
+                </li>
+                <li class="list-inline-item text-secondary me-4">
+                    <a class="link-secondary bs-icon" 
+                        href="https://www.linkedin.com/in/uyenbhku/" 
+                        target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            width="1em" 
+                            height="1em" 
+                            fill="currentColor" 
+                            viewBox="0 0 16 16" 
+                            class="bi bi-linkedin text-secondary" 
+                            style="font-size: 17px;">
+                            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"></path>
+                        </svg>
+                    </a>
+                </li>
+                <li class="list-inline-item text-secondary">
+                    <a class="link-secondary bs-icon" 
+                        href="mailto:uyen.bhku@gmail.com" 
+                        target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            width="1em" 
+                            height="1em" 
+                            fill="currentColor" 
+                            viewBox="0 0 16 16" 
+                            class="bi bi-envelope-at" 
+                            style="font-size: 17px;">
+                            <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"></path>
+                            <path d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648Zm-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z"></path>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+            <p class="mb-0">Copyright © 2023 uyenbhku</p>
+        </div>
+    </footer><!-- End: Footer Basic -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% load static %}
+<script src=" {% static 'js/script.min.js' %}"></script>
+</html>

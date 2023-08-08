@@ -1,0 +1,181 @@
+{% extends "pages/base.html" %}
+
+
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<div class="vstack">
+    <!-- Start: Hero Clean -->
+    <div class="container py-4 py-xl-5" id="about">
+        <div class="row gy-4 gy-md-0">
+            <div class="col-md-6">
+                {% load static %}
+                <div class="p-xl-5 m-xl-5">
+                    <img class="img-fluid shadow-lg focus-ring w-100 fit-cover" 
+                        style="min-height: 300px;padding-top: 0px;margin-bottom: 30px;margin-right: 0px;padding-right: 0px;margin-top: 9px;" 
+                        src="{% static 'img/personal_square.jpg' %}" 
+                        width="307" 
+                        height="409">
+                </div>
+            </div>
+            <div class="col-md-6 d-md-flex justify-content-md-center align-items-md-center">
+                <div class="vstack d-flex justify-content-sm-center justify-content-md-center align-items-md-start justify-content-lg-center align-items-lg-start align-items-xl-start align-items-xxl-start">
+                    <div style="max-width: 350px;">
+                        <h1 class="text-uppercase fw-bolder d-sm-flex d-lg-flex align-items-sm-center align-items-lg-center me-md-0 pe-md-0" 
+                            style="/*margin-right: -9px;*/padding-right: 0px;text-align: left;">
+                            Bui h. kim uyen
+                        </h1>
+                        <hr>
+                        <!-- Start: Animated Type Heading BS5 -->				
+                        <div class="caption v-middle text-center">
+                            <h3 class="cd-headline clip">
+                                <p class="blc">I'm | </p>
+                                <p class="cd-words-wrapper">
+                                    <b class="is-visible">Data Analyst</b>
+                                    <b>Data Engineer</b>
+                                    <b>Business Analyst</b>
+                                    <b>AI/ML Learner</b>
+                                </p>
+                            </h3>
+                        </div>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                        <!-- End: Animated Type Heading BS5 -->
+                        <p class="fs-5" 
+                            style="text-align: left;margin-bottom: 24px;">
+                            I am a junior in Computer Science. I love exploring and leveraging technology into products.
+                        </p>
+                    </div>
+                    <a class="text-start bg-primary d-flex justify-content-center btn btn-primary btn-hover" 
+                        href="/contact/" 
+                        role="button">
+                        Talk to me!
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div><!-- End: Hero Clean -->
+    <!-- Start: 2 Rows 1+3 Columns -->
+    <div class="container" style="padding-top: 62px;padding-bottom: 62px;">
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+                <h2 class="text-uppercase d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center mb-5" 
+                    id="skills" 
+                    style="margin-bottom: 50px;padding-bottom: 0px;padding-top: 0px;margin-top: 50px;">
+                    <strong>
+                        Skills Overview 
+                    </strong>
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="text-center d-flex flex-column align-items-center align-items-xl-center">
+                    <div class="bs-icon-lg bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon lg">
+                        <i class="fa fa-keyboard-o"></i>
+                    </div>
+                    <div class="px-3">
+                        <h4><strong>Languages</strong></h4>
+                        <ul class="list-unstyled">
+                            <li>Python</li>
+                            <li>SQL</li>
+                            <li>C/C++</li>
+                            <li>Java Script</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center d-flex flex-column align-items-center align-items-xl-center">
+                    <div class="bs-icon-lg bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            width="1em" 
+                            height="1em" 
+                            fill="currentColor" 
+                            viewBox="0 0 16 16" 
+                            class="bi bi-tools">
+                            <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0Zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708ZM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11Z"></path>
+                        </svg>
+                    </div>
+                    <div class="px-3">
+                        <h4><strong>Tools</strong></h4>
+                        <ul class="list-unstyled">
+                            <li>draw.io</li>
+                            <li>MS Office</li>
+                            <li>VS Code</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center d-flex flex-column align-items-center align-items-xl-center">
+                    <div class="bs-icon-lg bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon lg">
+                        <i class="icon-plus"></i>
+                    </div>
+                    <div class="px-3">
+                        <h4><strong>Skills</strong></h4>
+                        <ul class="list-unstyled">
+                            <li>English</li>
+                            <li>Machine Learning</li>
+                            <li>Web Development</li>
+                            <li>Graphic Design</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- End: 2 Rows 1+3 Columns -->
+    <div class="vstack" style="padding-top: 0px;padding-bottom: 80px;margin-bottom: 0px;">
+        <!-- Start: 1 Row 1 Column -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                    <h2 class="text-uppercase fw-bold text-center" 
+                        id="education" 
+                        style="margin-bottom: 50px;margin-top: 50px;">
+                        Education
+                    </h2>
+                </div>
+            </div>
+        </div><!-- End: 1 Row 1 Column -->
+        <!-- Start: 2 Rows 1+3 Columns -->
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <!-- Start: Timeline - Gabriela Carvalho -->
+                    <div class="gc005-timeline">
+                        <div class="gc005-container gc005-right">
+                            <div class="gc005-content">
+                                <h4 style="margin-top: -18px;">
+                                    <strong>HCMC University of Information Technology</strong>
+                                </h4>
+                                <span style="background: var(--bs-primary-border-subtle);padding-left: 10px;padding-top: 5px;padding-bottom: 5px;padding-right: 10px;">
+                                    2021 - (Expected) 2025
+                                </span>
+                                <p style="margin-top: 15px;">Bachelor of Science in Computer Science&nbsp;</p>
+                            </div>
+                        </div>
+                        <div class="gc005-container gc005-right">
+                            <div class="gc005-content">
+                                <h4 style="margin-top: -16px;">
+                                    <strong>Tran Hung Dao High School for the Gifted</strong>
+                                </h4>
+                                <span style="background: var(--bs-primary-border-subtle);padding-top: 5px;padding-bottom: 5px;padding-right: 10px;padding-left: 10px;">
+                                    2018 - 2021
+                                </span>
+                                <p style="margin-top: 15px;margin-bottom: 2px;">Specialized in English</p>
+                                <p style="margin-bottom: 2px;">Graduated with a GPA of 8.8</p>
+                                <p>Achieved a third prize in a provincial english contest</p>
+                            </div>
+                        </div>
+                    </div><!-- End: Timeline - Gabriela Carvalho -->
+                </div>
+            </div>
+        </div><!-- End: 2 Rows 1+3 Columns -->
+    </div>
+</div>
+{% endblock %}
