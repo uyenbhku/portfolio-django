@@ -15,3 +15,18 @@ class Article(models.Model):
 
     def get_thumbnail_url(self):
         return self.thumbnail.url
+
+
+
+class ContactInfo(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+
+
+    def get_client_message(self):
+        return f"""
+            Client: {self.name} \t Email: {self.email}
+            Message: 
+            {self.message}
+        """

@@ -1,9 +1,30 @@
 from django.contrib import admin
 
+# Import your models here.
+from .models import Article, ContactInfo
 # Register your models here.
-from .models import Article
-# Register your models here.
-admin.site.register(Article)
+admin.site.register([
+    Article, 
+    ContactInfo
+])
+
+
+class ContactInfoAdmin(admin.ModelAdmin):
+    list_display = [
+        'name',
+        'email', 
+        'message',
+    ]
+
+    search_fields = [
+        'name',
+        'email',
+    ]
+
+admin.site.unregister(ContactInfo)
+admin.site.register(ContactInfo, ContactInfoAdmin)
+
+
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = [
@@ -22,6 +43,7 @@ class ArticleAdmin(admin.ModelAdmin):
         'title',
         'course_name',
     ]
+
 
 admin.site.unregister(Article)
 admin.site.register(Article, ArticleAdmin)
