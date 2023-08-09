@@ -8,12 +8,11 @@
 #    return response
 
 # # Create your views here.
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+# from django.urls import reverse
 from .models import Article, ContactInfo
 from .forms import ContactForm
-from django.contrib import messages #import messages
 
 
 

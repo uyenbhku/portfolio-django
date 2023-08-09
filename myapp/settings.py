@@ -25,7 +25,7 @@ SECRET_KEY = config("SECRET_KEY") # this is to replace the secret key you cut aw
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'uyenbhku.up.railway.app',
@@ -36,7 +36,6 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
     config('CSRF_TRUST'),
 ]
-
 
 # Application definition
 CLOUDINARY_STORAGE = {
