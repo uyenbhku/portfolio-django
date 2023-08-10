@@ -8,6 +8,8 @@ Note: You might feel this similar to my older GitHub [uyenbhku.github.io](https:
 ## Current features: 
 - Simple GUI
 - Add/Change/Remove new project showcase from local
+- Receive contact request from users
+- Administrator page
 
 ## Upcoming features:
 - Embed Computer Vision and AI-powered tools/projects I (partially) created during my school years.
