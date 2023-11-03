@@ -10,7 +10,7 @@
 # # Create your views here.
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 # from django.urls import reverse
 from .models import Article, ContactInfo
 from .forms import ContactForm
@@ -22,7 +22,7 @@ def index(request, **kwargs):
    return render(request, 'pages/home.html')
 
 
-@csrf_protect
+@csrf_exempt
 def contact(request, **kwargs):
    if request.method == "POST":
       #Get the posted form
