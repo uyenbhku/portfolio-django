@@ -9,7 +9,8 @@
 
 # # Create your views here.
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_protect
 # from django.urls import reverse
 from .models import Article, ContactInfo
 from .forms import ContactForm
@@ -54,6 +55,7 @@ def contact(request, **kwargs):
    return render(request, 'pages/contact.html')
 
 
+@csrf_protect
 def portfolio(request, **kwargs):
    Data = {'Articles': Article.objects.all().order_by('date')}
 
