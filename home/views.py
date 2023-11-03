@@ -22,6 +22,7 @@ def index(request, **kwargs):
    return render(request, 'pages/home.html')
 
 
+@csrf_protect
 def contact(request, **kwargs):
    if request.method == "POST":
       #Get the posted form
@@ -55,7 +56,6 @@ def contact(request, **kwargs):
    return render(request, 'pages/contact.html')
 
 
-@csrf_protect
 def portfolio(request, **kwargs):
    Data = {'Articles': Article.objects.all().order_by('date')}
 
