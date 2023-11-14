@@ -1,5 +1,5 @@
-Django==4.2.4
-gunicorn==21.2.0
+Django
+gunicorn
 cloudinary
 dj3-cloudinary-storage  
 whitenoise
