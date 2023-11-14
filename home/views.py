@@ -58,5 +58,4 @@ def contact(request, **kwargs):
 
 def portfolio(request, **kwargs):
    Data = {'Articles': Article.objects.all().order_by('date')}
-
    return render(request, 'pages/portfolio.html', Data)
