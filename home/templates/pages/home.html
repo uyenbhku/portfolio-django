@@ -35,8 +35,9 @@ Home
                                 <p class="blc">I'm | </p>
                                 <p class="cd-words-wrapper">
                                     <b class="is-visible">Business Analyst Intern</b>
-                                    <b>AI/ML Learner</b>
-                                    <b>Technology Enthusiast</b>
+                                    {% for title in Titles %}
+                                    <b>{{title.name}}</b>
+                                    {% endfor %}
                                 </p>
                             </h3>
                         </div>
@@ -44,7 +45,7 @@ Home
                         <!-- End: Animated Type Heading BS5 -->
                         <p class="fs-5" 
                             style="text-align: left;margin-bottom: 24px;">
-                            I am a junior in Computer Science. I love exploring and leveraging technology into products.
+                            {{Description}}
                         </p>
                     </div>
                     <a class="text-start bg-primary d-flex justify-content-center btn btn-primary btn-hover" 
@@ -79,10 +80,9 @@ Home
                     <div class="px-3">
                         <h4><strong>Languages</strong></h4>
                         <ul class="list-unstyled">
-                            <li>Python</li>
-                            <li>SQL</li>
-                            <li>C/C++</li>
-                            <li>Java Script</li>
+                            {% for language in Languages %}
+                            <li>{{language.name}}</li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -102,9 +102,9 @@ Home
                     <div class="px-3">
                         <h4><strong>Tools</strong></h4>
                         <ul class="list-unstyled">
-                            <li>draw.io</li>
-                            <li>MS Office</li>
-                            <li>VS Code</li>
+                            {% for tool in Tools %}
+                            <li>{{tool.name}}</li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -117,10 +117,9 @@ Home
                     <div class="px-3">
                         <h4><strong>Skills</strong></h4>
                         <ul class="list-unstyled">
-                            <li>English</li>
-                            <li>Machine Learning</li>
-                            <li>Web Development</li>
-                            <li>Graphic Design</li>
+                            {% for skill in Skills %}
+                            <li>{{skill.name}}</li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>

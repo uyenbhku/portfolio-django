@@ -12,14 +12,22 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 # from django.urls import reverse
-from .models import Article, ContactInfo
+from .models import Project, ContactInfo, MyLanguage, MySkill, MyTool, MyTitle, MyInfo
 from .forms import ContactForm
 
 
 
 # Create your views here.
 def index(request, **kwargs):
-   return render(request, 'pages/home.html')
+   Data = {
+      'Skills': MySkill.objects.filter(is_hidden=False),
+      'Tools': MyTool.objects.filter(is_hidden=False),
+      'Languages': MyLanguage.objects.filter(is_hidden=False),
+      'Titles': MyTitle.objects.filter(is_hidden=False),
+      'Description': MyInfo.objects.all()[:1][0].home_description
+   }
+   print(Data)
+   return render(request, 'pages/home.html', Data)
 
 
 @csrf_exempt
@@ -57,5 +65,8 @@ def contact(request, **kwargs):
 
 
 def portfolio(request, **kwargs):
-   Data = {'Articles': Article.objects.all().order_by('date')}
+   Data = {
+      'Projects': Project.objects.all().filter(is_hidden=False).order_by('date'),
+      'Description': MyInfo.objects.all()[:1][0].portfolio_description
+   }
    return render(request, 'pages/portfolio.html', Data)

@@ -1,14 +1,10 @@
 from django.contrib import admin
 
 # Import your models here.
-from .models import Article, ContactInfo
+from .models import Project, ContactInfo, MySkill, MyLanguage, MyTool, MyTitle, MyInfo
+
+
 # Register your models here.
-admin.site.register([
-    Article, 
-    ContactInfo
-])
-
-
 class ContactInfoAdmin(admin.ModelAdmin):
     list_display = [
         'name',
@@ -21,12 +17,11 @@ class ContactInfoAdmin(admin.ModelAdmin):
         'email',
     ]
 
-admin.site.unregister(ContactInfo)
 admin.site.register(ContactInfo, ContactInfoAdmin)
 
 
 
-class ArticleAdmin(admin.ModelAdmin):
+class ProjectAdmin(admin.ModelAdmin):
     list_display = [
         'title', 
         'course_name',
@@ -44,6 +39,48 @@ class ArticleAdmin(admin.ModelAdmin):
         'course_name',
     ]
 
+admin.site.register(Project, ProjectAdmin)
 
-admin.site.unregister(Article)
-admin.site.register(Article, ArticleAdmin)
+
+
+class MySkillInline(admin.TabularInline):
+    model = MySkill
+
+
+class MyLanguageInline(admin.TabularInline):
+    model = MyLanguage
+
+
+class MyTitleInline(admin.TabularInline):
+    model = MyTitle
+
+
+class MyToolInline(admin.TabularInline):
+    model = MyTool
+
+
+
+class MyInfoAdmin(admin.ModelAdmin):
+    model = MyInfo
+    inlines = [
+        MyTitleInline,
+        MyLanguageInline,
+        MySkillInline,
+        MyToolInline,
+    ]
+admin.site.register(MyInfo, MyInfoAdmin)
+
+
+# admin.site.unregister([
+#     MySkill,
+#     MyLanguage,
+#     MyInfo,
+#     MyTool,
+#     MyTitle,
+#     ])
+# admin.site.register([
+#     MySkill,
+#     MyLanguage,
+#     MyInfo,
+#     MyTool,
+#     MyTitle,], MyInfoAdmin)
