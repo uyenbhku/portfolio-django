@@ -46,7 +46,7 @@ def contact(request, **kwargs):
          print('Failed to read')
          message = 'Something happens, please try again later.'
          isSuccess = False
-
+   
       Data = {
          'isSuccess' : isSuccess,
          'message': message,

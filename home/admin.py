@@ -26,12 +26,15 @@ class ProjectAdmin(admin.ModelAdmin):
         'title', 
         'course_name',
         'date',
+        'is_hidden',
+        'live_url',
     ]
 
     list_filter = [
         'tag',
         'course_name',
         'date',
+        'is_hidden',
     ]
 
     search_fields = [

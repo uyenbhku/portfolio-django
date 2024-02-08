@@ -55,6 +55,18 @@
                             </a>
                         </div>
                     </div>
+                    {% if project.status == 'IsLived' %}
+                    <center style="margin-bottom: 20px;">
+                        The project is now lived!
+                        <a class="text-start bg-primary d-flex justify-content-center btn btn-primary btn-hover" 
+                        href="{{project.live_url}}" 
+                        role="button"
+                        target="_blank"
+                        >
+                        Visit now!
+                        </a>
+                    </center>
+                    {% endif %}
                     <div class="d-flex">
                         <img class="rounded-circle flex-shrink-0 me-3 fit-cover" 
                             width="50" 
@@ -65,7 +77,7 @@
                                 {{project.author}}
                             </p>
                             <p class="text-muted mb-0">
-                                Course: {{project.course_name}}
+                                {{project.course_name}}
                             </p>
                         </div>
                     </div>

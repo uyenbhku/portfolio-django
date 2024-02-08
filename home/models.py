@@ -5,7 +5,8 @@ class Project(models.Model):
     select_status = [
         ('Ongoing', 'Ongoing'),
         ('Done', 'Done'),
-        ('Canceled', 'Cancelled')
+        ('Canceled', 'Cancelled'),
+        ('IsLived', 'IsLived'),
     ]
 
     title = models.CharField(max_length=300)
@@ -19,6 +20,7 @@ class Project(models.Model):
     tag = models.TextField()
     status = models.CharField(max_length=20, choices=select_status)
     is_hidden = models.BooleanField(default=False)
+    live_url = models.TextField(null=True)
 
 
     def get_thumbnail_url(self):
