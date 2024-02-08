@@ -1,0 +1,26 @@
+{% extends 'pages/base.html' %}
+
+
+{% block title %}Resume{% endblock %}
+
+{% block content %}
+<div id='uyen-resume-container' style="width:100%">
+    <center>
+        <div style="margin: 15px;">
+            <a class="text-start bg-primary d-flex justify-content-center btn btn-primary btn-hover" 
+                style="width: 20%;text-align: center;"
+                href="{{resume_url | default:'https://res.cloudinary.com/dfg7txntc/image/upload/v1707400337/myapp/media/resumes/Business_Analyst_Intern_Bui_Huynh_Kim_Uyen_Resume_ysgix1.pdf'}}" 
+                role="button"
+                target="_blank"
+                download
+            >
+                Download
+            </a>
+        </div>
+        <embed id="uyen-resume" src="{{resume_url | default:'https://res.cloudinary.com/dfg7txntc/image/upload/v1707400337/myapp/media/resumes/Business_Analyst_Intern_Bui_Huynh_Kim_Uyen_Resume_ysgix1.pdf'}}#view=FitBH" 
+                width="100%" 
+                height="600" 
+                type="application/pdf">
+    </center>
+</div>
+{% endblock %}
