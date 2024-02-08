@@ -70,3 +70,4 @@ class MyInfo(models.Model):
     portfolio_description = models.TextField()
     owner = models.CharField(max_length=40, default='Uyen Kim', primary_key=True)
     resume = models.FileField(upload_to='resumes/', null=True)
+    personal_image = models.ImageField(upload_to='myself/', null=True)

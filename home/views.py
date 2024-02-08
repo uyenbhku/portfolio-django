@@ -1,12 +1,3 @@
-# from django.shortcuts import render
-# from django.http import HttpResponse
-# # Create your views here.
-# def index(request):
-#    response = HttpResponse()
-#    response.writelines('<h1>Xin chào</h1>')
-#    response.write('Đây là app home')
-#    return response
-
 # # Create your views here.
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -16,15 +7,17 @@ from .models import Project, ContactInfo, MyLanguage, MySkill, MyTool, MyTitle, 
 from .forms import ContactForm
 
 
-
+myinfo = MyInfo.objects.all()[:1][0]
 # Create your views here.
+@csrf_exempt
 def index(request, **kwargs):
    Data = {
       'Skills': MySkill.objects.filter(is_hidden=False),
       'Tools': MyTool.objects.filter(is_hidden=False),
       'Languages': MyLanguage.objects.filter(is_hidden=False),
       'Titles': MyTitle.objects.filter(is_hidden=False),
-      'Description': MyInfo.objects.all()[:1][0].home_description
+      'Description': myinfo.home_description,
+      'PersonalImage': myinfo.personal_image.url,
    }
    print(Data)
    return render(request, 'pages/home.html', Data)
@@ -57,6 +50,7 @@ def contact(request, **kwargs):
       Data = {
          'isSuccess' : isSuccess,
          'message': message,
+         'PersonalImage': myinfo.personal_image.url,
       }
       
       return HttpResponse(render(request, 'pages/contact.html', Data))
@@ -67,13 +61,13 @@ def contact(request, **kwargs):
 def portfolio(request, **kwargs):
    Data = {
       'Projects': Project.objects.all().filter(is_hidden=False).order_by('date'),
-      'Description': MyInfo.objects.all()[:1][0].portfolio_description
+      'Description': myinfo.portfolio_description
    }
    return render(request, 'pages/portfolio.html', Data)
 
 
 def pdf_view(request, **kwargs):
    Data = {
-      'resume_url': MyInfo.objects.all()[:1][0].resume.url
+      'resume_url': myinfo.resume.url
    }
    return render(request, 'pages/resume.html', Data)

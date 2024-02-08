@@ -3,7 +3,7 @@ My portfolio deployed on Railway using Django Framework and PostgreSQL database.
 
 Note: You might feel this similar to my older GitHub [uyenbhku.github.io](https://github.com/uyenbhku/uyenbhku.github.io). It is simply because I made this one based on that repo.
 
-### Visit it here: [uyenbhku.up.railway.com](https://uyenbhku.up.railway.app/)
+### Visit it here: [uyenbhku.onrender.com](https://uyenbhku.onrender.com/)
 
 ## Current features: 
 - Simple GUI
