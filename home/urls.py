@@ -7,4 +7,5 @@ urlpatterns = [
     path('contact/', views.contact,  kwargs = {'navbar': 'contact'}),
     path('portfolio/', views.portfolio,  kwargs = {'navbar': 'portfolio'}),
     path('home/', views.index,  kwargs = {'navbar': 'home'}),
+    path('resume/', views.pdf_view,  kwargs = {'navbar': 'resume'}),
 ]

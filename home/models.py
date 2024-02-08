@@ -69,3 +69,4 @@ class MyInfo(models.Model):
     home_description = models.TextField()
     portfolio_description = models.TextField()
     owner = models.CharField(max_length=40, default='Uyen Kim', primary_key=True)
+    resume = models.FileField(upload_to='resumes/', null=True)

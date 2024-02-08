@@ -70,3 +70,10 @@ def portfolio(request, **kwargs):
       'Description': MyInfo.objects.all()[:1][0].portfolio_description
    }
    return render(request, 'pages/portfolio.html', Data)
+
+
+def pdf_view(request, **kwargs):
+   Data = {
+      'resume_url': MyInfo.objects.all()[:1][0].resume.url
+   }
+   return render(request, 'pages/resume.html', Data)
