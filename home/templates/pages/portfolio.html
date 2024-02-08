@@ -7,38 +7,38 @@
     style="background: var(--bs-primary);padding: 2rem!important;/*padding-top: 41px;*//*margin-bottom: -2px;*//*padding-bottom: 0px;*/">
     <strong>Portfolio</strong>
 </h1>
-<!-- Start: Articles Cards -->
+<!-- Start: Projects Cards -->
 <div class="container py-4 py-xl-5">
     <div class="row mb-5">
         <div class="col-md-8 col-xl-6 text-center mx-auto">
             <h2>Welcome!</h2>
             <p class="w-lg-50">
-                Here are some of my side projects and demo (if applicable) that I've done!
+                {{Description}}
             </p>
         </div>
     </div>
     <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
-        {% for article in Articles %}
+        {% for project in Projects %}
         <div class="col">
             <div class="card">
                 <!-- {% load static %} -->
                 <img class="card-img-top w-100 d-block fit-cover" 
                     style="height: 200px;" 
-                    src="{{article.thumbnail.url}}" />
+                    src="{{project.thumbnail.url}}" />
                 <div class="card-body p-4">
                     <p class="text-primary card-text mb-0">
-                        {{article.tag}}
+                        {{project.tag}}
                     </p>
                     <h4 class="card-title">
-                        {{article.title}}
+                        {{project.title}}
                     </h4>
                     <p class="card-text">
-                        {{article.description}}
+                        {{project.description}}
                     </p>
                     <div class="row mb-3">
                         <div class="col">
                             <a class="text-start bg-primary d-flex justify-content-center btn btn-primary btn-hover" 
-                                href="{{article.document_link}}" 
+                                href="{{project.document_link}}" 
                                 role="button"
                                 target="_blank"
                             >
@@ -47,7 +47,7 @@
                         </div>
                         <div class="col">
                             <a class="text-start bg-primary d-flex justify-content-center btn btn-primary btn-hover" 
-                                href="{{article.code}}" 
+                                href="{{project.code}}" 
                                 role="button"
                                 target="_blank"
                             >
@@ -62,10 +62,10 @@
                             src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" />
                         <div>
                             <p class="fw-bold mb-0">
-                                {{article.author}}
+                                {{project.author}}
                             </p>
                             <p class="text-muted mb-0">
-                                Course: {{article.course_name}}
+                                Course: {{project.course_name}}
                             </p>
                         </div>
                     </div>
@@ -74,5 +74,5 @@
         </div>
         {% endfor %}
     </div>
-</div><!-- End: Articles Cards -->
+</div><!-- End: Projects Cards -->
 {% endblock %}

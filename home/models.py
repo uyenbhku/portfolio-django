@@ -1,7 +1,13 @@
 from django.db import models
 
 # Create your models here.
-class Article(models.Model):
+class Project(models.Model):
+    select_status = [
+        ('Ongoing', 'Ongoing'),
+        ('Done', 'Done'),
+        ('Canceled', 'Cancelled')
+    ]
+
     title = models.CharField(max_length=300)
     description = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
@@ -11,6 +17,8 @@ class Article(models.Model):
     thumbnail = models.ImageField(upload_to='images/')
     author = models.TextField()
     tag = models.TextField()
+    status = models.CharField(max_length=20, choices=select_status)
+    is_hidden = models.BooleanField(default=False)
 
 
     def get_thumbnail_url(self):
@@ -22,6 +30,7 @@ class ContactInfo(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     message = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
 
 
     def get_client_message(self):
@@ -30,3 +39,33 @@ class ContactInfo(models.Model):
             Message: 
             {self.message}
         """
+
+class AbstractSkillOverview(models.Model):
+    name = models.CharField(max_length=30)
+    is_hidden = models.BooleanField(default=False)
+    owner = models.ForeignKey("MyInfo", on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+
+class MySkill(AbstractSkillOverview):
+    pass
+
+
+class MyTool(AbstractSkillOverview):
+    pass
+
+
+class MyLanguage(AbstractSkillOverview):
+    pass
+
+
+class MyTitle(AbstractSkillOverview):
+    pass
+
+
+class MyInfo(models.Model):
+    home_description = models.TextField()
+    portfolio_description = models.TextField()
+    owner = models.CharField(max_length=40, default='Uyen Kim', primary_key=True)

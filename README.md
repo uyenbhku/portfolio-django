@@ -7,9 +7,9 @@ Note: You might feel this similar to my older GitHub [uyenbhku.github.io](https:
 
 ## Current features: 
 - Simple GUI
-- Add/Change/Remove new project showcase from local
+- Add/Change/Remove new projects showcase from local
 - Receive contact request from users
-- Administrator page
+- Administrator page [NEW]: add features to change visible information easier
 
 ## Upcoming features:
 - Embed Computer Vision and AI-powered tools/projects I (partially) created during my school years.
