@@ -21,6 +21,7 @@ class Project(models.Model):
     status = models.CharField(max_length=20, choices=select_status)
     is_hidden = models.BooleanField(default=False)
     live_url = models.TextField(blank=True, null=True)
+    priority_level = models.IntegerField(default=1)
 
 
     def get_thumbnail_url(self):

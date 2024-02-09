@@ -63,7 +63,7 @@ def portfolio(request, **kwargs):
    myinfo = MyInfo.objects.get(owner='Uyen Kim')
 
    Data = {
-      'Projects': Project.objects.filter(is_hidden=False),
+      'Projects': Project.objects.filter(is_hidden=False).order_by('priority_level', '-date'),
       'Description': myinfo.portfolio_description
    }
    return render(request, 'pages/portfolio.html', Data)
