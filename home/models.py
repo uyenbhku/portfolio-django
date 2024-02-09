@@ -10,17 +10,17 @@ class Project(models.Model):
     ]
 
     title = models.CharField(max_length=300)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     date = models.DateTimeField(auto_now_add=True)
     course_name = models.TextField()
-    document_link = models.TextField()
-    code = models.TextField()
+    document_link = models.TextField(blank=True, null=True)
+    code = models.TextField(blank=True, null=True)
     thumbnail = models.ImageField(upload_to='images/')
     author = models.TextField()
-    tag = models.TextField()
+    tag = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=select_status)
     is_hidden = models.BooleanField(default=False)
-    live_url = models.TextField(null=True)
+    live_url = models.TextField(blank=True, null=True)
 
 
     def get_thumbnail_url(self):

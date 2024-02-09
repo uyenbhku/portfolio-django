@@ -36,15 +36,18 @@
                         {{project.description}}
                     </p>
                     <div class="row mb-3">
-                        <div class="col">
-                            <a class="text-start bg-primary d-flex justify-content-center btn btn-primary btn-hover" 
-                                href="{{project.document_link}}" 
-                                role="button"
-                                target="_blank"
-                            >
-                                Documents
-                            </a>
-                        </div>
+                        {% if project.document_link %}
+                            <div class="col">
+                                <a class="text-start bg-primary d-flex justify-content-center btn btn-primary btn-hover" 
+                                    href="{{project.document_link}}" 
+                                    role="button"
+                                    target="_blank"
+                                >
+                                    Documents
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if project.code %}
                         <div class="col">
                             <a class="text-start bg-primary d-flex justify-content-center btn btn-primary btn-hover" 
                                 href="{{project.code}}" 
@@ -54,6 +57,7 @@
                                 GitHub
                             </a>
                         </div>
+                        {% endif %}
                     </div>
                     {% if project.status == 'IsLived' %}
                     <center style="margin-bottom: 20px;">
