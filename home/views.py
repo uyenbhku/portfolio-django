@@ -10,7 +10,7 @@ from .forms import ContactForm
 # Create your views here.
 @csrf_exempt
 def index(request, **kwargs):
-   myinfo = MyInfo.objects.all()[:1][0]
+   myinfo = MyInfo.objects.get(owner='Uyen Kim')
 
    Data = {
       'Skills': MySkill.objects.filter(is_hidden=False),
@@ -20,7 +20,6 @@ def index(request, **kwargs):
       'Description': myinfo.home_description,
       'PersonalImage': myinfo.personal_image.url,
    }
-   print(Data)
    return render(request, 'pages/home.html', Data)
 
 
@@ -48,7 +47,7 @@ def contact(request, **kwargs):
          message = 'Something happens, please try again later.'
          isSuccess = False
    
-      myinfo = MyInfo.objects.all()[:1][0]
+      myinfo = MyInfo.objects.get(owner='Uyen Kim')
       Data = {
          'isSuccess' : isSuccess,
          'message': message,
@@ -61,17 +60,17 @@ def contact(request, **kwargs):
 
 
 def portfolio(request, **kwargs):
-   myinfo = MyInfo.objects.all()[:1][0]
+   myinfo = MyInfo.objects.get(owner='Uyen Kim')
 
    Data = {
-      'Projects': Project.objects.all().filter(is_hidden=False).order_by('date'),
+      'Projects': Project.objects.filter(is_hidden=False),
       'Description': myinfo.portfolio_description
    }
    return render(request, 'pages/portfolio.html', Data)
 
 
 def pdf_view(request, **kwargs):
-   myinfo = MyInfo.objects.all()[:1][0]
+   myinfo = MyInfo.objects.get(owner='Uyen Kim')
    Data = {
       'resume_url': myinfo.resume.url
    }
