@@ -7,10 +7,11 @@ from .models import Project, ContactInfo, MyLanguage, MySkill, MyTool, MyTitle, 
 from .forms import ContactForm
 
 
-myinfo = MyInfo.objects.all()[:1][0]
 # Create your views here.
 @csrf_exempt
 def index(request, **kwargs):
+   myinfo = MyInfo.objects.all()[:1][0]
+
    Data = {
       'Skills': MySkill.objects.filter(is_hidden=False),
       'Tools': MyTool.objects.filter(is_hidden=False),
@@ -47,6 +48,7 @@ def contact(request, **kwargs):
          message = 'Something happens, please try again later.'
          isSuccess = False
    
+      myinfo = MyInfo.objects.all()[:1][0]
       Data = {
          'isSuccess' : isSuccess,
          'message': message,
@@ -59,6 +61,8 @@ def contact(request, **kwargs):
 
 
 def portfolio(request, **kwargs):
+   myinfo = MyInfo.objects.all()[:1][0]
+
    Data = {
       'Projects': Project.objects.all().filter(is_hidden=False).order_by('date'),
       'Description': myinfo.portfolio_description
@@ -67,6 +71,7 @@ def portfolio(request, **kwargs):
 
 
 def pdf_view(request, **kwargs):
+   myinfo = MyInfo.objects.all()[:1][0]
    Data = {
       'resume_url': myinfo.resume.url
    }
