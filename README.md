@@ -21,3 +21,4 @@ Note: You might feel this similar to my older GitHub [uyenbhku.github.io](https:
 - `python manage.py runserver` : run server on localhost:8000/
 - `python manage.py collectstatic` : process staticfiles for deployment
 - `python manage.py test` : conduct unit test
+- `python manage.py migrate` : update database

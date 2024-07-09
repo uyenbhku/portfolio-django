@@ -28,7 +28,6 @@ class Project(models.Model):
         return self.thumbnail.url
 
 
-
 class ContactInfo(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
