@@ -1,7 +1,16 @@
 from django.test import TestCase, SimpleTestCase
+from http import HTTPStatus
 
 # Create your tests here.
-class SimpleTest(SimpleTestCase):
-   def test_home_page_status(self):
-       response = self.client.get('/')
-       self.assertEquals(response.status_code, 200)
+class KeepAliveTest(SimpleTestCase):
+   def test_get(self):
+       response = self.client.get('/keep-alive/')
+       assert response.status_code == HTTPStatus.OK
+
+
+class RobotsTxtTests(SimpleTestCase):
+    def test_get(self):
+        response = self.client.get("/robots.txt")
+
+        assert response.status_code == HTTPStatus.OK
+        assert response["content-type"] == "text/plain"
