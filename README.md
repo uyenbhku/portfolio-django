@@ -15,3 +15,9 @@ Note: You might feel this similar to my older GitHub [uyenbhku.github.io](https:
 - Embed Computer Vision and AI-powered tools/projects I (partially) created during my school years.
 - Apply data science tools
 - A few more..
+
+
+### RUN APP LOCALLY
+- `python manage.py runserver` : run server on localhost:8000/
+- `python manage.py collectstatic` : process staticfiles for deployment
+- `python manage.py test` : conduct unit test
