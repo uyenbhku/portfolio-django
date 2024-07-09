@@ -75,3 +75,7 @@ def pdf_view(request, **kwargs):
       'resume_url': myinfo.resume.url
    }
    return render(request, 'pages/resume.html', Data)
+
+
+def keep_alive(request):
+    return HttpResponse("Hello, world!")

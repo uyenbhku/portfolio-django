@@ -27,7 +27,7 @@ SECRET_KEY = config("SECRET_KEY") # this is to replace the secret key you cut aw
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(config('DEBUG'))
+DEBUG = False
 
 ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS').split(',')
  
