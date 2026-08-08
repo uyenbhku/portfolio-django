@@ -186,4 +186,26 @@ STORAGES = {
 MEDIA_URL = "/myapp/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+CSP_DEFAULT_SRC = ("'self'",)
+
+CSP_STYLE_SRC = (
+    "'self'", 
+    "https://fonts.googleapis.com", 
+    "https://cdn.jsdelivr.net",
+    "'unsafe-inline'"  
+)
+
+CSP_FONT_SRC = (
+    "'self'", 
+    "https://gstatic.com", 
+    "https://cdn.jsdelivr.net"
+)
+
+CSP_SCRIPT_SRC = (
+    "'self'", 
+    "https://cdn.jsdelivr.net", 
+    "'unsafe-inline'"  
+)
+
+
 CSP_FRAME_ANCESTORS = ("'self'", "https://" + ALLOWED_HOSTS[0])
