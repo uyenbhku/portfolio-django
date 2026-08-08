@@ -16,9 +16,20 @@ Note: You might feel this similar to my older GitHub [uyenbhku.github.io](https:
 - Apply data science tools
 - A few more..
 
-
 ### RUN APP LOCALLY
+
+Create or activate an existing (virtual environment)[https://docs.python.org/3/library/venv.html] 
+```bash
+# Create a new virtual env
+python -m venv /path/to/new/virtual/environment
+# e.g: Activate an existing virtual environment on Windows
+source env/Scripts/activate
+```
+
+Run these commands on demand
+
 - `python manage.py runserver` : run server on localhost:8000/
 - `python manage.py collectstatic` : process staticfiles for deployment
 - `python manage.py test` : conduct unit test
+- `python manage.py createsuperuser` : create admin user 
 - `python manage.py migrate` : update database

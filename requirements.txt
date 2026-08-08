@@ -1,9 +1,10 @@
 Django
 gunicorn
 cloudinary
-dj3-cloudinary-storage  
+django-cloudinary-storage
 whitenoise
 python-decouple
 psycopg2
+psycopg2-binary
 dj-database-url
 pillow
