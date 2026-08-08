@@ -232,7 +232,6 @@ class BlogDetailView(DetailView):
 
 
 @require_http_methods(["GET"])
-@xframe_options_exempt
 def resume_view(request):
     profile = get_profile()
     return render(request, 'pages/resume.html', {'profile': profile})
