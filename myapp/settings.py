@@ -182,5 +182,6 @@ STORAGES = {
 }
 
 # Keep your media URL target
-MEDIA_URL = "/myapp/media/"
+CLOUDINARY_MEDIA_URL = config('CLOUDINARY_MEDIA_URL')
+MEDIA_URL = f"{CLOUDINARY_MEDIA_URL}/myapp/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
