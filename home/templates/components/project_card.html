@@ -1,0 +1,34 @@
+<div class="col d-flex">
+    <article class="pf-card w-100 d-flex flex-column">
+        <a href="{{ project.get_absolute_url }}" class="text-decoration-none">
+            {% if project.thumbnail %}
+            <img class="pf-card-img w-100" src="{{ project.thumbnail.url }}" alt="{{ project.title }}">
+            {% endif %}
+        </a>
+        <div class="card-body p-4 d-flex flex-column flex-grow-1">
+            <div class="d-flex flex-wrap gap-2 mb-2">
+                <span class="pf-badge {% if project.status == 'live' %}pf-badge-live{% elif project.status == 'ongoing' %}pf-badge-ongoing{% endif %}">
+                    {{ project.get_status_display }}
+                </span>
+                {% for tech in project.technologies.all|slice:":3" %}
+                <span class="pf-badge">{{ tech.name }}</span>
+                {% endfor %}
+            </div>
+            <h3 class="h5 fw-bold mb-2">
+                <a href="{{ project.get_absolute_url }}" class="text-decoration-none text-reset">{{ project.title }}</a>
+            </h3>
+            <p class="text-muted flex-grow-1 mb-3">
+                {{ project.short_description|default:project.description|truncatewords:25 }}
+            </p>
+            <div class="d-flex flex-wrap gap-2 mt-auto">
+                <a href="{{ project.get_absolute_url }}" class="btn pf-btn-outline btn-sm">Details</a>
+                {% if project.live_url %}
+                <a href="{{ project.live_url }}" class="btn pf-btn-primary btn-sm" target="_blank" rel="noopener">Live Demo</a>
+                {% endif %}
+                {% if project.repository_url %}
+                <a href="{{ project.repository_url }}" class="btn pf-btn-outline btn-sm" target="_blank" rel="noopener"><i class="bi bi-github"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+</div>

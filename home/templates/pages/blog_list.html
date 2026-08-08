@@ -1,0 +1,84 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+<div class="pf-page-header">
+    <div class="container">
+        <h1>Blog</h1>
+        <p class="mb-0 opacity-75">Notes, tutorials, and learning in public.</p>
+    </div>
+</div>
+
+<section class="pf-section pt-0">
+    <div class="container">
+        <form method="get" class="row g-3 mb-4">
+            <div class="col-md-8">
+                <input type="search" name="q" class="form-control form-control-lg" placeholder="Search posts..." value="{{ search_query }}">
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn pf-btn-primary btn-lg w-100">Search</button>
+            </div>
+        </form>
+
+        {% if technologies %}
+        <div class="pf-filter-bar">
+            <a href="{% url 'blog_list' %}" class="pf-tech-chip {% if not active_tech %}active{% endif %}">All</a>
+            {% for tech in technologies %}
+            <a href="?tech={{ tech.name|urlencode }}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="pf-tech-chip {% if active_tech == tech.name %}active{% endif %}">{{ tech.name }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if posts %}
+        <div class="row g-4">
+            {% for post in posts %}
+            <div class="col-md-6 col-lg-4">
+                <article class="pf-card h-100 d-flex flex-column">
+                    {% if post.featured_image %}
+                    <a href="{{ post.get_absolute_url }}">
+                        <img class="pf-card-img" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                    </a>
+                    {% endif %}
+                    <div class="p-4 d-flex flex-column flex-grow-1">
+                        <p class="text-muted small mb-2">{{ post.published_at|date:"M d, Y" }}</p>
+                        <h2 class="h5 fw-bold">
+                            <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-reset">{{ post.title }}</a>
+                        </h2>
+                        <p class="text-muted flex-grow-1">{{ post.excerpt|truncatewords:30 }}</p>
+                        {% if post.technologies.exists %}
+                        <div class="d-flex flex-wrap gap-1 mb-3">
+                            {% for tech in post.technologies.all|slice:":4" %}
+                            <span class="pf-badge">{{ tech.name }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <a href="{{ post.get_absolute_url }}" class="btn pf-btn-outline btn-sm align-self-start">Read More</a>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if page_obj.has_other_pages %}
+        <nav class="mt-5 d-flex justify-content-center">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                {% endif %}
+                <li class="page-item disabled"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+                {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        {% else %}
+        <div class="pf-empty-state">
+            <i class="bi bi-journal-text display-4 d-block mb-3"></i>
+            <p>No blog posts yet. Check back soon!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

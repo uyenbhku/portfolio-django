@@ -1,26 +1,34 @@
-{% extends 'pages/base.html' %}
-
+{% extends "pages/base.html" %}
 
 {% block title %}Resume{% endblock %}
 
 {% block content %}
-<div id='uyen-resume-container' style="width:100%">
-    <center>
-        <div style="margin: 15px;">
-            <a class="text-start bg-primary d-flex justify-content-center btn btn-primary btn-hover" 
-                style="width: 30%;text-align: center;"
-                href="{{resume_url | default:'https://res.cloudinary.com/dfg7txntc/image/upload/v1707400337/myapp/media/resumes/Business_Analyst_Intern_Bui_Huynh_Kim_Uyen_Resume_ysgix1.pdf'}}" 
-                role="button"
-                target="_blank"
-                download
-            >
-                Download
-            </a>
+<div class="pf-page-header">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+            <h1>Resume</h1>
+            <p class="mb-0 opacity-75">{{ profile.name }}</p>
         </div>
-        <embed id="uyen-resume" src="{{resume_url | default:'https://res.cloudinary.com/dfg7txntc/image/upload/v1707400337/myapp/media/resumes/Business_Analyst_Intern_Bui_Huynh_Kim_Uyen_Resume_ysgix1.pdf'}}#view=FitBH" 
-                width="100%" 
-                height="600" 
-                type="application/pdf">
-    </center>
+        {% if profile.resume %}
+        <a class="btn btn-light fw-semibold" href="{{ profile.resume.url }}" target="_blank" download>
+            <i class="bi bi-download me-1"></i> Download PDF
+        </a>
+        {% endif %}
+    </div>
 </div>
+
+<section class="pf-section pt-0">
+    <div class="container">
+        {% if profile.resume %}
+        <div class="pf-card overflow-hidden">
+            <embed src="{{ profile.resume.url }}#view=FitH" width="100%" height="800" type="application/pdf">
+        </div>
+        {% else %}
+        <div class="pf-empty-state">
+            <i class="bi bi-file-earmark-pdf display-4 d-block mb-3"></i>
+            <p>Resume not uploaded yet. Add one in the Django admin under Profile.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
 {% endblock %}
