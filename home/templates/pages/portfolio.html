@@ -12,17 +12,39 @@
 
 <section class="pf-section pt-0">
     <div class="pf-container container">
-        <div class="pf-filter-bar">
-            <a href="{% url 'portfolio' %}" class="pf-tech-chip {% if not active_tech and not active_status %}active{% endif %}">All</a>
-            {% for tech in technologies %}
-            <a href="?tech={{ tech.name|urlencode }}" class="pf-tech-chip {% if active_tech == tech.name %}active{% endif %}">{{ tech.name }}</a>
-            {% endfor %}
-        </div>
-        <div class="pf-filter-bar">
-            {% for value, label in status_choices %}
-            <a href="?{% if active_tech %}tech={{ active_tech|urlencode }}&{% endif %}status={{ value }}" class="pf-tech-chip {% if active_status == value %}active{% endif %}">{{ label }}</a>
-            {% endfor %}
-        </div>
+        <form method="get" action="." id="portfolio-filter-form" class="pf-dropdown-filter-form">
+            <div class="pf-dropdown-group">
+                
+                <!-- Technology Dropdown -->
+                <div class="pf-select-wrapper">
+                    <select name="tech" onchange="this.form.submit()" class="pf-filter-select">
+                        <option value="">All Technologies</option>
+                        {% for tech in technologies %}
+                            <option value="{{ tech.name }}" {% if active_tech == tech.name %}selected{% endif %}>
+                                {{ tech.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+        
+                <!-- Status Dropdown -->
+                <div class="pf-select-wrapper">
+                    <select name="status" onchange="this.form.submit()" class="pf-filter-select">
+                        <option value="">All Statuses</option>
+                        {% for value, label in status_choices %}
+                            <option value="{{ value }}" {% if active_status == value %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <!-- Clear Filters button (shows up only if a filter is active) -->
+                {% if active_tech or active_status %}
+                    <a href="{% url 'portfolio' %}" class="pf-clear-filters">Clear All</a>
+                {% endif %}
+            </div>
+        </form>
 
         {% if projects %}
         <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-xl-3">

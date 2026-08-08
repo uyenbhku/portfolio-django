@@ -234,6 +234,61 @@ body {
     color: #fff;
 }
 
+.pf-dropdown-filter-form {
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.pf-dropdown-group {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap; /* Allows wrapping gracefully on narrow mobile screens */
+}
+
+.pf-select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.pf-filter-select {
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid var(--pf-border, #ccc);
+    border-radius: 8px;
+    background: var(--pf-surface, #fff);
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+    appearance: none; /* Strips browser defaults */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    /* Custom CSS drop arrow */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://w3.org' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.pf-filter-select:focus {
+    border-color: var(--pf-accent, #007bff);
+}
+
+.pf-clear-filters {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--pf-accent, #007bff);
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+}
+
+.pf-clear-filters:hover {
+    text-decoration: underline;
+}
+
 .pf-btn-primary {
     background: var(--pf-accent);
     border-color: var(--pf-accent);
