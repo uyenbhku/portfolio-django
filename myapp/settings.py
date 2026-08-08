@@ -175,6 +175,9 @@ STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
+    "media": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
     # Handles WhiteNoise static files
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
@@ -182,5 +185,6 @@ STORAGES = {
 }
 
 # Keep your media URL target
-MEDIA_URL = "/myapp/media/"
+CLOUDINARY_MEDIA_URL = config('CLOUDINARY_MEDIA_URL')
+MEDIA_URL = f"/myapp/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
