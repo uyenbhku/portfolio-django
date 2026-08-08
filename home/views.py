@@ -37,8 +37,8 @@ class HomeView(TemplateView):
         context.update({
             'profile': profile,
             'technologies_by_category': {
-                'language': sort_technologies(
-                    tech_qs.filter(category='language', is_featured=True)
+                'programming_language': sort_technologies(
+                    tech_qs.filter(category='programming_language', is_featured=True)
                 ),
                 'framework': sort_technologies(
                     tech_qs.filter(category='framework', is_featured=True)
@@ -48,6 +48,21 @@ class HomeView(TemplateView):
                 ),
                 'database': sort_technologies(
                     tech_qs.filter(category='database', is_featured=True)
+                ),
+                'soft_skills': sort_technologies(
+                    tech_qs.filter(category='soft_skills', is_featured=True)
+                ),
+                'cloud': sort_technologies(
+                    tech_qs.filter(category='cloud', is_featured=True)
+                ),
+                'testing': sort_technologies(
+                    tech_qs.filter(category='testing', is_featured=True)
+                ),
+                'ide': sort_technologies(
+                    tech_qs.filter(category='ide', is_featured=True)
+                ),
+                'language': sort_technologies(
+                    tech_qs.filter(category='language', is_featured=True)
                 ),
                 'other': sort_technologies(
                     tech_qs.filter(category='other', is_featured=True)
