@@ -44,7 +44,7 @@
                         <div class="pf-timeline-date">{{ job.date_range }}</div>
                         <h3 class="h5 fw-bold">{{ job.title }}</h3>
                         <p class="text-primary fw-semibold">{{ job.organization }} · {{ job.location }}</p>
-                        <p>{{ job.description }}</p>
+                        <p>{{ job.description|linebreaksbr }}</p>
                         {% if job.highlights %}
                         <ul class="mb-2">
                             {% for item in job.highlights %}
@@ -81,7 +81,7 @@
                         <h3 class="h5 fw-bold">{{ edu.organization }}</h3>
                         <p class="text-primary fw-semibold">{{ edu.degree }} — {{ edu.field_of_study }}</p>
                         {% if edu.gpa %}<p class="text-muted">GPA: {{ edu.gpa }}</p>{% endif %}
-                        <p class="mb-0">{{ edu.description }}</p>
+                        <p class="mb-0">{{ edu.description|linebreaksbr }}</p>
                     </div>
                     {% endfor %}
                 </div>
