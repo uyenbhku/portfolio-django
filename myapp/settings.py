@@ -93,7 +93,6 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'csp.middleware.CSPMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -185,5 +184,3 @@ STORAGES = {
 # Keep your media URL target
 MEDIA_URL = "/myapp/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-CSP_FRAME_ANCESTORS = ("'self'", "https://" + ALLOWED_HOSTS[0])
