@@ -12,11 +12,13 @@ class AbstractSitemapClass():
 
 class StaticSitemap(Sitemap):
     pages = {
-             'home':'/', #Add more static pages here like this 'example':'url_of_example',
-             'contact':'/contact/',
-             'portfolio':'/portfolio/',
-             'resume':'/resume/',
-        }
+        'home': '/',
+        'about': '/about/',
+        'contact': '/contact/',
+        'portfolio': '/portfolio/',
+        'blog': '/blog/',
+        'resume': '/resume/',
+    }
     main_sitemaps = []
     for page in pages.keys():
         sitemap_class = AbstractSitemapClass()
