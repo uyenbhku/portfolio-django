@@ -4,14 +4,14 @@
 
 {% block content %}
 <div class="pf-page-header">
-    <div class="container">
+    <div class="pf-container container">
         <h1>About Me</h1>
         <p class="mb-0 opacity-75">{{ profile.title }}</p>
     </div>
 </div>
 
 <section class="pf-section pt-0">
-    <div class="container">
+    <div class="pf-container container">
         <div class="row g-5 align-items-start">
             <div class="col-lg-4 text-center">
                 {% if profile.profile_image %}
@@ -34,7 +34,7 @@
 
 {% if work_experience %}
 <section class="pf-section bg-body">
-    <div class="container">
+    <div class="pf-container container">
         <h2 class="pf-section-title">Work Experience</h2>
         <div class="row justify-content-center">
             <div class="col-lg-9">
@@ -44,7 +44,7 @@
                         <div class="pf-timeline-date">{{ job.date_range }}</div>
                         <h3 class="h5 fw-bold">{{ job.title }}</h3>
                         <p class="text-primary fw-semibold">{{ job.organization }} · {{ job.location }}</p>
-                        <p>{{ job.description }}</p>
+                        <p>{{ job.description|linebreaksbr }}</p>
                         {% if job.highlights %}
                         <ul class="mb-2">
                             {% for item in job.highlights %}
@@ -70,7 +70,7 @@
 
 {% if education %}
 <section class="pf-section">
-    <div class="container">
+    <div class="pf-container container">
         <h2 class="pf-section-title">Education</h2>
         <div class="row justify-content-center">
             <div class="col-lg-9">
@@ -81,7 +81,7 @@
                         <h3 class="h5 fw-bold">{{ edu.organization }}</h3>
                         <p class="text-primary fw-semibold">{{ edu.degree }} — {{ edu.field_of_study }}</p>
                         {% if edu.gpa %}<p class="text-muted">GPA: {{ edu.gpa }}</p>{% endif %}
-                        <p class="mb-0">{{ edu.description }}</p>
+                        <p class="mb-0">{{ edu.description|linebreaksbr }}</p>
                     </div>
                     {% endfor %}
                 </div>
@@ -92,7 +92,7 @@
 {% endif %}
 
 <section class="pf-section bg-body">
-    <div class="container">
+    <div class="pf-container container">
         <h2 class="pf-section-title">Technical Skills</h2>
         <p class="pf-section-subtitle">Full breakdown by category and proficiency.</p>
         <div class="row g-4">

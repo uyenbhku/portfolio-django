@@ -4,14 +4,14 @@
 
 {% block content %}
 <div class="pf-page-header">
-    <div class="container">
+    <div class="pf-container container">
         <h1>Portfolio</h1>
         <p class="mb-0 opacity-75">{{ profile.bio_short|truncatewords:20 }}</p>
     </div>
 </div>
 
 <section class="pf-section pt-0">
-    <div class="container">
+    <div class="pf-container container">
         <div class="pf-filter-bar">
             <a href="{% url 'portfolio' %}" class="pf-tech-chip {% if not active_tech and not active_status %}active{% endif %}">All</a>
             {% for tech in technologies %}
