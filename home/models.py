@@ -33,10 +33,16 @@ class Technology(models.Model):
     """Skills, languages, frameworks, and tools in one flexible model."""
 
     CATEGORY_CHOICES = [
-        ('language', 'Programming Language'),
+        ('programming_language', 'Programming Language'),
         ('framework', 'Framework'),
         ('tool', 'Tool'),
         ('database', 'Database'),
+        ('soft_skills', 'Soft Skills'),
+        ('cloud', 'Cloud'),
+        ('testing', 'Testing'),
+        ('ide', 'IDE'),
+        ('language', 'Language'),
+        ('version_control', 'Version Control'),
         ('other', 'Other'),
     ]
 
