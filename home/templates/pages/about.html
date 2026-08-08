@@ -1,0 +1,119 @@
+{% extends "pages/base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<div class="pf-page-header">
+    <div class="container">
+        <h1>About Me</h1>
+        <p class="mb-0 opacity-75">{{ profile.title }}</p>
+    </div>
+</div>
+
+<section class="pf-section pt-0">
+    <div class="container">
+        <div class="row g-5 align-items-start">
+            <div class="col-lg-4 text-center">
+                {% if profile.profile_image %}
+                <img class="pf-profile-img mx-auto" src="{{ profile.profile_image.url }}" alt="{{ profile.name }}">
+                {% endif %}
+                <div class="mt-4">
+                    {% if profile.email %}<p class="mb-1"><i class="bi bi-envelope me-2"></i>{{ profile.email }}</p>{% endif %}
+                    {% if profile.phone %}<p class="mb-1"><i class="bi bi-telephone me-2"></i>{{ profile.phone }}</p>{% endif %}
+                    {% if profile.location %}<p class="mb-0"><i class="bi bi-geo-alt me-2"></i>{{ profile.location }}</p>{% endif %}
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="pf-prose">
+                    {{ profile.bio_full|linebreaks }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if work_experience %}
+<section class="pf-section bg-body">
+    <div class="container">
+        <h2 class="pf-section-title">Work Experience</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="pf-timeline">
+                    {% for job in work_experience %}
+                    <div class="pf-timeline-item">
+                        <div class="pf-timeline-date">{{ job.date_range }}</div>
+                        <h3 class="h5 fw-bold">{{ job.title }}</h3>
+                        <p class="text-primary fw-semibold">{{ job.organization }} · {{ job.location }}</p>
+                        <p>{{ job.description }}</p>
+                        {% if job.highlights %}
+                        <ul class="mb-2">
+                            {% for item in job.highlights %}
+                            <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if job.technologies_used.exists %}
+                        <div class="d-flex flex-wrap gap-1">
+                            {% for tech in job.technologies_used.all %}
+                            <span class="pf-tech-chip">{{ tech.name }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if education %}
+<section class="pf-section">
+    <div class="container">
+        <h2 class="pf-section-title">Education</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="pf-timeline">
+                    {% for edu in education %}
+                    <div class="pf-timeline-item">
+                        <div class="pf-timeline-date">{{ edu.date_range }}</div>
+                        <h3 class="h5 fw-bold">{{ edu.organization }}</h3>
+                        <p class="text-primary fw-semibold">{{ edu.degree }} — {{ edu.field_of_study }}</p>
+                        {% if edu.gpa %}<p class="text-muted">GPA: {{ edu.gpa }}</p>{% endif %}
+                        <p class="mb-0">{{ edu.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="pf-section bg-body">
+    <div class="container">
+        <h2 class="pf-section-title">Technical Skills</h2>
+        <p class="pf-section-subtitle">Full breakdown by category and proficiency.</p>
+        <div class="row g-4">
+            {% for category, items in technologies_by_category.items %}
+            {% if items %}
+            <div class="col-md-6">
+                <div class="pf-card p-4">
+                    <h3 class="h6 text-uppercase text-muted fw-bold mb-3">{{ category|title }}</h3>
+                    <!-- Flexbox container to display items side-by-side -->
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for tech in items %}
+                        <span class="px-3 py-1.5 rounded-pill border bg-light text-dark small fw-semibold">
+                            {{ tech.name }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

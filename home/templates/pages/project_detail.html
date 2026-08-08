@@ -1,0 +1,73 @@
+{% extends "pages/base.html" %}
+
+{% block title %}{{ project.title }}{% endblock %}
+{% block meta_description %}{{ project.short_description|default:project.description|truncatewords:30 }}{% endblock %}
+
+{% block content %}
+<div class="pf-page-header">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a href="{% url 'portfolio' %}" class="text-white-50">Portfolio</a></li>
+                <li class="breadcrumb-item active text-white" aria-current="page">{{ project.title }}</li>
+            </ol>
+        </nav>
+        <h1>{{ project.title }}</h1>
+        <div class="d-flex flex-wrap gap-2 mt-2">
+            <span class="pf-badge {% if project.status == 'live' %}pf-badge-live{% endif %}">{{ project.get_status_display }}</span>
+            {% for tech in project.technologies.all %}
+            <span class="pf-badge">{{ tech.name }}</span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<section class="pf-section pt-0">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                {% if project.thumbnail %}
+                <img class="img-fluid rounded-4 mb-4 w-100 shadow" src="{{ project.thumbnail.url }}" alt="{{ project.title }}">
+                {% endif %}
+                <div class="pf-prose">
+                    {{ project.description|linebreaks }}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="pf-card p-4 sticky-top" style="top: calc(var(--pf-nav-height) + 1rem);">
+                    <h2 class="h6 fw-bold text-uppercase text-muted mb-3">Project Links</h2>
+                    <div class="d-grid gap-2">
+                        {% if project.live_url %}
+                        <a href="{{ project.live_url }}" class="btn pf-btn-primary" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right me-1"></i> Live Demo</a>
+                        {% endif %}
+                        {% if project.repository_url %}
+                        <a href="{{ project.repository_url }}" class="btn pf-btn-outline" target="_blank" rel="noopener"><i class="bi bi-github me-1"></i> Source Code</a>
+                        {% endif %}
+                        {% if project.document_url %}
+                        <a href="{{ project.document_url }}" class="btn pf-btn-outline" target="_blank" rel="noopener"><i class="bi bi-file-earmark-text me-1"></i> Documentation</a>
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <p class="small text-muted mb-1">Created {{ project.created_at|date:"M d, Y" }}</p>
+                    {% if project.updated_at != project.created_at %}
+                    <p class="small text-muted mb-0">Updated {{ project.updated_at|date:"M d, Y" }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% if related_projects %}
+        <div class="mt-5 pt-5 border-top">
+            <h2 class="h4 fw-bold mb-4">Related Projects</h2>
+            <div class="row g-4 row-cols-1 row-cols-md-3">
+                {% for related in related_projects %}
+                {% with project=related %}
+                {% include "components/project_card.html" %}
+                {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
