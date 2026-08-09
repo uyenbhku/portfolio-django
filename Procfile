@@ -1,2 +1,2 @@
-web: gunicorn myapp.wsgi --bind 0.0.0.0:$PORT
+web: gunicorn myapp.wsgi 
 worker: python manage.py rqworker --job-class django_tasks_rq.Job
