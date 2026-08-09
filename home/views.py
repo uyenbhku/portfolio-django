@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView, FormView
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_http_methods
@@ -26,6 +28,7 @@ def sort_technologies(queryset):
     return sorted(queryset, key=lambda t: (-t.level_score, t.name))
 
 
+@method_decorator(cache_page(900), name='dispatch')
 class HomeView(TemplateView):
     template_name = 'pages/home.html'
 
@@ -80,6 +83,7 @@ class HomeView(TemplateView):
         return context
 
 
+@method_decorator(cache_page(900), name='dispatch')
 class PortfolioView(ListView):
     model = Project
     template_name = 'pages/portfolio.html'
@@ -132,6 +136,7 @@ class ProjectDetailView(DetailView):
         return context
 
 
+@method_decorator(cache_page(900), name='dispatch')
 class AboutView(TemplateView):
     template_name = 'pages/about.html'
 
@@ -152,6 +157,7 @@ class AboutView(TemplateView):
         return context
 
 
+@method_decorator(cache_page(900), name='dispatch')
 class ContactView(FormView):
     template_name = 'pages/contact.html'
     form_class = ContactForm
@@ -190,6 +196,7 @@ class ContactView(FormView):
         return super().form_invalid(form)
 
 
+@method_decorator(cache_page(900), name='dispatch')
 class BlogListView(ListView):
     model = BlogPost
     template_name = 'pages/blog_list.html'
@@ -250,6 +257,7 @@ class BlogDetailView(DetailView):
 
 
 @require_http_methods(["GET"])
+@cache_page(600)
 def resume_view(request):
     profile = get_profile()
     return render(request, 'pages/resume.html', {'profile': profile})

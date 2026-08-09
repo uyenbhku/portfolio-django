@@ -121,10 +121,18 @@ WSGI_APPLICATION = 'myapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 import dj_database_url
-DATABASE_URL = config('DATABASE_URL')
+DATABASE_URL = config('DATABASE_POOLED_URL')
 DATABASES = {
-    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=0),
 }
+
+DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = True
+DATABASES["default"]["OPTIONS"] = {
+    "pool": False,
+    "server_side_binding": False,  # Leave server_side_binding OUT (or set to False) to allow Django 
+    # to send protocol-level prepared statements that PgBouncer can cache.
+}
+DATABASES["default"]["OPTIONS"]["sslmode"] = "require"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
