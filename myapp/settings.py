@@ -92,12 +92,16 @@ MANAGERS = [
     (config('ADMIN_NAME'), config('ADMIN_EMAIL'))
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('SMTP_HOST')  
-EMAIL_PORT = config('SMTP_PORT')
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('SMTP_USER')
-EMAIL_HOST_PASSWORD = config('SMTP_PASSWORD')
+# Email 
+# Switch the backend to Anymail for Brevo API
+EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
+
+ANYMAIL = {
+    "BREVO_API_KEY": config("BREVO_API_KEY"),
+}
+
+# Brevo requires a verified sender address
+DEFAULT_FROM_EMAIL = config("SMTP_USER")
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

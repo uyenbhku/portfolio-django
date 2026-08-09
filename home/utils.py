@@ -23,7 +23,7 @@ def send_email(name: str, email: str, content: str, subject: str = '', cc: list 
             to=[email],
             cc=cc + [admin_email],
             connection=connection,
-        ).send()
+        ).send(fail_silently=True,)
 
 
 def send_thankyou_email(name: str, email: str, cc: list = []):
@@ -47,4 +47,4 @@ def send_thankyou_email(name: str, email: str, cc: list = []):
             connection=connection,
         )
         email.content_subtype='html'
-        email.send()
+        email.send(fail_silently=True,)
