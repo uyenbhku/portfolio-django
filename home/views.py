@@ -64,6 +64,9 @@ class HomeView(TemplateView):
                 'language': sort_technologies(
                     tech_qs.filter(category='language', is_featured=True)
                 ),
+                'technologies': sort_technologies(
+                    tech_qs.filter(category='technologies', is_featured=True)
+                ),
                 'other': sort_technologies(
                     tech_qs.filter(category='other', is_featured=True)
                 ),

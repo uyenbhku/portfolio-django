@@ -41,8 +41,8 @@ class Technology(models.Model):
         ('cloud', 'Cloud'),
         ('testing', 'Testing'),
         ('ide', 'IDE'),
+        ('technologies', 'Technologies'),
         ('language', 'Language'),
-        ('version_control', 'Version Control'),
         ('other', 'Other'),
     ]
 
