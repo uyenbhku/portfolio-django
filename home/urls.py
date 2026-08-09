@@ -36,10 +36,9 @@ urlpatterns = [
         name='contact'
     ),
     path('contact/success/', 
-        TemplateView.as_view(
-            template_name='pages/contact_success.html'
-        ), 
-        name='contact_success'
+        views.ContactView.as_view(), 
+        kwargs={'navbar': 'contact'}, 
+        name='contact-success'
     ),
     
     # Portfolio

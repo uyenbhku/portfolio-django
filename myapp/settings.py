@@ -80,8 +80,28 @@ INSTALLED_APPS = [
     'cloudinary',
     "django.contrib.sites",  
     "django.contrib.sitemaps",
+    "django_tasks",
+    "django_rq",
+    "django_tasks_rq",
     'home',
 ]
+
+# Message Queue
+TASKS = {
+    "default": {
+        "BACKEND": "django_tasks_rq.RQBackend",
+        "QUEUES": ["default"]
+    }
+}
+
+RQ_QUEUES = {
+    "default": {
+        "URL": config("REDIS_URL"),
+        "DEFAULT_TIMEOUT": 360,
+        # Force the client to skip sending CLIENT MAINT_NOTIFICATIONS on connection handshake
+        "MAINT_NOTIFICATIONS_CONFIG": "disabled", 
+    }
+}
 
 SITE_ID = 1  
 
