@@ -7,12 +7,18 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.db.models import Q
 
+import os
+from dotenv import load_dotenv
+
+from .utils import send_email, send_thankyou_email
+
 from .models import (
     Project, Technology, Profile, BlogPost,
     Education, WorkExperience, ContactMessage,
 )
 from .forms import ContactForm
 
+load_dotenv()
 
 def get_profile():
     """Return the single portfolio profile."""
@@ -168,6 +174,9 @@ class ContactView(FormView):
         context['profile'] = get_profile()
         return context
 
+    def should_send_email(self): 
+        return os.getenv("SEND_EMAIL_ENABLED")
+
     def form_valid(self, form):
         ContactMessage.objects.create(
             name=form.cleaned_data['name'],
@@ -175,6 +184,19 @@ class ContactView(FormView):
             subject=form.cleaned_data.get('subject', ''),
             message=form.cleaned_data['message'],
         )
+
+        if self.should_send_email():
+            send_email(
+                form.cleaned_data['name'], 
+                form.cleaned_data['email'], 
+                form.cleaned_data['message'], 
+                form.cleaned_data.get('subject', '')
+            )
+
+            send_thankyou_email(
+                form.cleaned_data['name'], 
+                form.cleaned_data['email'], 
+            )
 
         messages.success(
             self.request,

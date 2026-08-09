@@ -85,6 +85,20 @@ INSTALLED_APPS = [
 
 SITE_ID = 1  
 
+ADMINS = [
+    (config('ADMIN_NAME'), config('ADMIN_EMAIL'))
+]
+MANAGERS = [
+    (config('ADMIN_NAME'), config('ADMIN_EMAIL'))
+]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('SMTP_HOST')  
+EMAIL_PORT = config('SMTP_PORT')
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('SMTP_USER')
+EMAIL_HOST_PASSWORD = config('SMTP_PASSWORD')
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",

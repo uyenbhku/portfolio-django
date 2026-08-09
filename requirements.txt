@@ -7,6 +7,7 @@ dj3-cloudinary-storage==0.0.6
 Django==5.2.17
 django-cloudinary-storage==0.3.0
 django-csp==4.0
+dotenv==0.9.9
 gunicorn==26.0.0
 idna==3.18
 packaging==26.3
@@ -14,6 +15,7 @@ pillow==12.3.0
 psycopg2==2.9.12
 psycopg2-binary==2.9.12
 python-decouple==3.8
+python-dotenv==1.2.2
 requests==2.34.2
 six==1.17.0
 sqlparse==0.5.5
