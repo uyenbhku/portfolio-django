@@ -1,6 +1,7 @@
 from django.core import mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from django_tasks import task
 
 import os
 from dotenv import load_dotenv
@@ -10,6 +11,7 @@ load_dotenv()
 admin_email = os.getenv("ADMIN_EMAIL")
 service_email = os.getenv("MY_EMAIL")
 
+@task
 def send_email(name: str, email: str, content: str, subject: str = '', cc: list = []):
     # Prepare the email content
     subject = subject if subject else f"NEW MESSAGE FROM {name}"
@@ -25,7 +27,7 @@ def send_email(name: str, email: str, content: str, subject: str = '', cc: list 
             connection=connection,
         ).send(fail_silently=True,)
 
-
+@task
 def send_thankyou_email(name: str, email: str, cc: list = []):
     subject = "Thank you for contacting"
 

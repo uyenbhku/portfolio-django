@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.db.models import Q
+from django_tasks import task
 
 import os
 from dotenv import load_dotenv
@@ -167,7 +168,7 @@ class AboutView(TemplateView):
 class ContactView(FormView):
     template_name = 'pages/contact.html'
     form_class = ContactForm
-    success_url = '/contact/'
+    success_url = '/contact/success'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -178,30 +179,25 @@ class ContactView(FormView):
         return os.getenv("SEND_EMAIL_ENABLED")
 
     def form_valid(self, form):
-        ContactMessage.objects.create(
+        store_email.enqueue(
             name=form.cleaned_data['name'],
             email=form.cleaned_data['email'],
             subject=form.cleaned_data.get('subject', ''),
             message=form.cleaned_data['message'],
         )
-
+        
         if self.should_send_email():
-            send_email(
+            send_email.enqueue(
                 form.cleaned_data['name'], 
                 form.cleaned_data['email'], 
                 form.cleaned_data['message'], 
                 form.cleaned_data.get('subject', '')
             )
 
-            send_thankyou_email(
+            send_thankyou_email.enqueue(
                 form.cleaned_data['name'], 
                 form.cleaned_data['email'], 
             )
-
-        messages.success(
-            self.request,
-            'Thank you for your message. I will get back to you soon!',
-        )
 
         if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return JsonResponse({
@@ -209,11 +205,18 @@ class ContactView(FormView):
                 'message': 'Message sent successfully!',
             })
 
+        messages.success(
+            self.request,
+            'Thank you for your message. I will get back to you soon!',
+        )
+
         return super().form_valid(form)
 
     def form_invalid(self, form):
         if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return JsonResponse({'status': 'error', 'errors': form.errors})
+
+        messages.error(self.request, f"Form submission failed: {form.errors.as_text()}")
 
         return super().form_invalid(form)
 
@@ -284,6 +287,15 @@ def resume_view(request):
     profile = get_profile()
     return render(request, 'pages/resume.html', {'profile': profile})
 
+
+@task
+def store_email(name, email, subject, message): 
+    ContactMessage.objects.create(
+        name=name,
+        email=email,
+        subject=subject,
+        message=message,
+    )
 
 def keep_alive(request):
     return HttpResponse("Service is running")
