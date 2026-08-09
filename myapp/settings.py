@@ -129,7 +129,8 @@ DATABASES = {
 DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = True
 DATABASES["default"]["OPTIONS"] = {
     "pool": False,
-    "server_side_binding": True,  # Forces Django to bind variables locally instead of using Postgres prepared statements
+    "server_side_binding": False,  # Leave server_side_binding OUT (or set to False) to allow Django 
+    # to send protocol-level prepared statements that PgBouncer can cache.
 }
 DATABASES["default"]["OPTIONS"]["sslmode"] = "require"
 
